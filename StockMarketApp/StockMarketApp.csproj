@@ -69,8 +69,10 @@
 
 	<ItemGroup>
 	  <None Remove="Services\" />
+	  <None Remove="Constants\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Services\" />
+	  <Folder Include="Constants\" />
 	</ItemGroup>
 </Project>

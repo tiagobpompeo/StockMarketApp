@@ -1,4 +1,5 @@
-﻿using StockMarketApp.Repository;
+﻿using StockMarketApp.Constants;
+using StockMarketApp.Repository;
 
 namespace StockMarketApp;
 
@@ -7,8 +8,6 @@ public partial class MainPage : ContentPage
 	int count = 0;
 
     public GenericRepository _genericRepository { get; set; }
-
-    public const string apiKey = "demo";
 
     public MainPage()
 	{
@@ -32,7 +31,7 @@ public partial class MainPage : ContentPage
 
         try
         {
-            string apiQuery = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={apiKey}";            
+            string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";            
             var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
             UpdateUI(stockData);
         }
@@ -74,7 +73,7 @@ public partial class MainPage : ContentPage
 
             try
             {
-                string apiQuery = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={apiKey}";
+                string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";
                 var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
                 UpdateUI(stockData);
             }
