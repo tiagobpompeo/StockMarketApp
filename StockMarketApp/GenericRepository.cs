@@ -12,13 +12,12 @@ namespace StockMarketApp.Repository
 {
     public class GenericRepository : IGenericRepository
     {
-
         public async Task<T> GetAsync<T>(string uri, string authToken = "")
         {
             try
             {
                 HttpClient httpClient = CreateHttpClient(uri);
-                httpClient.DefaultRequestHeaders.Add("token", authToken);
+                //httpClient.DefaultRequestHeaders.Add("token", authToken);
                 string jsonResult = string.Empty;
 
                 var responseMessage = await Policy
@@ -218,4 +217,6 @@ namespace StockMarketApp.Repository
         }
 
     }
+
+
 }

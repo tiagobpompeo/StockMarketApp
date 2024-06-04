@@ -1,25 +1,60 @@
-﻿namespace StockMarketApp;
+﻿using StockMarketApp.Repository;
+
+namespace StockMarketApp;
 
 public partial class MainPage : ContentPage
 {
 	int count = 0;
 
-	public MainPage()
+    public GenericRepository _genericRepository { get; set; }
+
+    public const string apiKey = "21JJZR7SSRJN47ZI";
+
+    public MainPage()
 	{
 		InitializeComponent();
-	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+        _genericRepository = new GenericRepository();
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    }
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+    private async void OnGetStockDataClicked(object sender, EventArgs e)
+    {
+        var symbol = StockSymbolEntry.Text;
+
+        if (string.IsNullOrWhiteSpace(symbol))
+        {
+            await DisplayAlert("Error", "Please enter a valid stock symbol", "OK");
+            return;
+        }
+
+        LoadingIndicator.IsRunning = true;
+        LoadingIndicator.IsVisible = true;
+
+        try
+        {
+            string apiQuery = $"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={apiKey}";
+            
+            var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
+
+            UpdateUI(stockData);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Failed to get stock data: {ex.Message}", "OK");
+        }
+        finally
+        {
+            LoadingIndicator.IsRunning = false;
+            LoadingIndicator.IsVisible = false;
+        }
+    }
+
+    private void UpdateUI(StockData stockData)
+    {
+        StockNameLabel.Text = stockData.GlobalQuote._01symbol;
+        StockPriceLabel.Text = stockData.GlobalQuote._05price.ToString();
+    }
 }
 
 
