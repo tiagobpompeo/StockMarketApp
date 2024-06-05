@@ -92,8 +92,14 @@ public partial class MainPage : ContentPage
 
     private void UpdateUiWithNewPrices(StockData stockData)
     {
-        StockNameLabel.Text = stockData.GlobalQuote._01symbol;
-        StockPriceLabel.Text = stockData.GlobalQuote._05price.ToString();
+       
+
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            StockNameLabel.Text = stockData.GlobalQuote._01symbol;
+            StockPriceLabel.Text = stockData.GlobalQuote._05price.ToString();
+        });
+      
     }
 
 }
