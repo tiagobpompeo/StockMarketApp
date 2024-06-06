@@ -9,9 +9,9 @@
         <Frame Margin="0,20,0,0" HeightRequest="150" HorizontalOptions="Start" WidthRequest="150">
             <VerticalStackLayout>
                 <Label Text="Stock Name:" />
-                <Label x:Name="StockNameLabel" />
+                <Label x:Name="StockNameLabel" TextColor="Black" />
                 <Label Text="Stock Price:" />
-                <Label x:Name="StockPriceLabel" />
+                <Label x:Name="StockPriceLabel" TextColor="Black" />
             </VerticalStackLayout>          
         </Frame>       
     </StackLayout>
