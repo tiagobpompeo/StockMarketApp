@@ -7,12 +7,10 @@ public partial class MainPage : ContentPage
 {
 	int count = 0;
 
-    public GenericRepository _genericRepository { get; set; }
-
     public MainPage()
 	{
 		InitializeComponent();
-        _genericRepository = new GenericRepository();
+       
     }
 
   
@@ -31,6 +29,8 @@ public partial class MainPage : ContentPage
 
         try
         {
+            // Acessando a instância Singleton
+            GenericRepository _genericRepository = GenericRepository.Instance;
             string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";            
             var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
             UpdateUI(stockData);
@@ -73,6 +73,7 @@ public partial class MainPage : ContentPage
 
             try
             {
+                GenericRepository _genericRepository = GenericRepository.Instance;
                 string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";
                 var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
                 UpdateUI(stockData);

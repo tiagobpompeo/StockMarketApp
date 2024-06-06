@@ -10,8 +10,27 @@ using Polly;
 
 namespace StockMarketApp.Repository
 {
-    public class GenericRepository : IGenericRepository
+    public sealed class GenericRepository : IGenericRepository
     {
+
+        // Instância estática única da classe Singleton
+        private static readonly GenericRepository instance = new GenericRepository();
+
+        // Propriedade pública para acessar a instância única
+        public static GenericRepository Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+
+        private GenericRepository()
+        {
+            // Inicialização da classe
+        }
+
         public async Task<T> GetAsync<T>(string uri, string authToken = "")
         {
             try
