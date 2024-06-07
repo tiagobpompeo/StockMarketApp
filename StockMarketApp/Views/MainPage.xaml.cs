@@ -1,4 +1,6 @@
 ﻿using StockMarketApp.Constants;
+using StockMarketApp.Interface;
+using StockMarketApp.Models;
 using StockMarketApp.Repository;
 
 namespace StockMarketApp;
@@ -10,10 +12,8 @@ public partial class MainPage : ContentPage
     public MainPage()
 	{
 		InitializeComponent();
-       
     }
 
-  
     private async void OnGetStockDataClicked(object sender, EventArgs e)
     {
         var symbol = StockSymbolEntry.Text;
@@ -33,7 +33,17 @@ public partial class MainPage : ContentPage
             GenericRepository _genericRepository = GenericRepository.Instance;
             string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";            
             var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
-            UpdateUI(stockData);
+
+            if (symbol == "IBM")
+            {
+                UpdateUIOne(stockData);
+            }
+
+            if (symbol == "TSCO")
+            {
+                UpdateUITwo(stockData);
+            }
+
         }
         catch (Exception ex)
         {
@@ -46,14 +56,15 @@ public partial class MainPage : ContentPage
         }
 
         _ = UpdateStockPricesAsync();
+        FactoryMethodTest();
     }
 
-    private void UpdateUI(StockData stockData)
+    private void FactoryMethodTest()
     {
-        StockNameLabel.Text = stockData.GlobalQuote._01symbol;
-        StockPriceLabel.Text = stockData.GlobalQuote._05price.ToString();
+        FactoryStock fm = new FactoryStock();
+        IStock stock  = fm.Choice_Stock("IBM");
+        stock.Choiced();
     }
-
     public async Task UpdateStockPricesAsync()
     {
         while (true)
@@ -76,7 +87,16 @@ public partial class MainPage : ContentPage
                 GenericRepository _genericRepository = GenericRepository.Instance;
                 string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={symbol}&apikey={ApiConstants.apiKey}";
                 var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
-                UpdateUI(stockData);
+
+                if (symbol == "IBM")
+                {
+                    UpdateUIOne(stockData);
+                }
+
+                if (symbol == "TSCO")
+                {
+                    UpdateUITwo(stockData);
+                }
             }
             catch (Exception ex)
             {
@@ -91,16 +111,34 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void UpdateUiWithNewPrices(StockData stockData)
-    {
-       
 
+
+    private void UpdateUIOne(StockData stockData)
+    {
         MainThread.BeginInvokeOnMainThread(() =>
         {
             StockNameLabel.Text = stockData.GlobalQuote._01symbol;
             StockPriceLabel.Text = stockData.GlobalQuote._05price.ToString();
+
+            StockNameLabel2.Text = stockData.GlobalQuote._01symbol;
+            StockPriceLabel2.Text = stockData.GlobalQuote._05price.ToString();
+
+            StockNameLabel3.Text = stockData.GlobalQuote._01symbol;
+            StockPriceLabel3.Text = stockData.GlobalQuote._05price.ToString();
+
+            StockNameLabel4.Text = stockData.GlobalQuote._01symbol;
+            StockPriceLabel4.Text = stockData.GlobalQuote._05price.ToString();
+
         });
-      
+    }
+
+    private void UpdateUITwo(StockData stockData)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            StockNameLabel2.Text = stockData.GlobalQuote._01symbol;
+            StockPriceLabel2.Text = stockData.GlobalQuote._05price.ToString();
+        });
     }
 
 }

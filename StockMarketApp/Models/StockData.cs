@@ -1,11 +1,13 @@
 ﻿using System;
-namespace StockMarketApp.Models
+using Newtonsoft.Json;
+
+namespace StockMarketApp
 {
     public class StockData
     {
-        public string Symbol { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
+        [JsonProperty("Global Quote")]
+        public GlobalQuote GlobalQuote { get; set; }
+
     }
 }
 
