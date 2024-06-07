@@ -1,12 +1,19 @@
-﻿namespace StockMarketApp;
+﻿using StockMarketApp.Services;
+using StockMarketApp.ViewModels;
+
+namespace StockMarketApp;
 
 public partial class App : Application
 {
 	public App()
 	{
 		InitializeComponent();
+        InitNavigation();
+    }
 
-		MainPage = new AppShell();
-	}
+    private void InitNavigation()
+    {
+        MainPage = new StockMarketApp.Views.MainPage();
+    }
 }
 

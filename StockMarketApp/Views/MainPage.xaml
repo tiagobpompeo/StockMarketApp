@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="StockMarketApp.MainPage">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             x:Class="StockMarketApp.Views.MainPage">
     <StackLayout Padding="20">
-        <Entry BackgroundColor="WhiteSmoke" x:Name="StockSymbolEntry" PlaceholderColor="Gray" TextColor="Black" Placeholder="Enter Stock Symbol Demo like IBM" />
-        <Button Margin="0,10,0,0" Text="Get Stock Data" Clicked="OnGetStockDataClicked" />
+        <Entry BackgroundColor="WhiteSmoke"
+               x:Name="StockSymbolEntry"
+               PlaceholderColor="Gray"
+               Text="{Binding StockSymbolEntry}"
+               TextColor="Black"
+               Placeholder="Enter Stock Symbol Demo like IBM" />
+
+        <Button Margin="0,10,0,0" Text="Get Stock Data" Command="{Binding OnGetStockDataCommand}" />
         <ActivityIndicator x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" />
 
         <Grid ColumnSpacing="10">
@@ -19,31 +25,30 @@
 
                  <Frame Grid.Row="0" CornerRadius="8" BackgroundColor="#A8A8A8" Grid.Column="0" Margin="0,20,0,0" HeightRequest="100" >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">                      
-                        <Label x:Name="StockNameLabel" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" />                    
-                        <Label x:Name="StockPriceLabel"  HorizontalTextAlignment="Center" TextColor="Black" />
+                        <Label x:Name="StockNameLabel" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockNameLabel}" />                    
+                        <Label x:Name="StockPriceLabel"  HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockPriceLabel}" />
                     </VerticalStackLayout>          
                 </Frame>       
                 <Frame Grid.Row="0" CornerRadius="8"  BackgroundColor="#B4A596" Grid.Column="1" Margin="0,20,0,0" HeightRequest="100" >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
-                        <Label x:Name="StockNameLabel2" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" />                    
-                        <Label x:Name="StockPriceLabel2"  HorizontalTextAlignment="Center" TextColor="Black" />
+                        <Label x:Name="StockNameLabel2" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockNameLabel}" />                    
+                        <Label x:Name="StockPriceLabel2"  HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockPriceLabel}" />
                     </VerticalStackLayout>          
                 </Frame>
 
              <Frame Grid.Row="1" CornerRadius="8" BackgroundColor="#669999" Grid.Column="0" Margin="0,20,0,0" HeightRequest="100" >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">                      
-                        <Label x:Name="StockNameLabel3" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" />                    
-                        <Label x:Name="StockPriceLabel3"  HorizontalTextAlignment="Center" TextColor="Black" />
+                        <Label x:Name="StockNameLabel3" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockNameLabel}"/>                    
+                        <Label x:Name="StockPriceLabel3"  HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockPriceLabel}"/>
                     </VerticalStackLayout>          
                 </Frame>       
                 <Frame Grid.Row="1" CornerRadius="8"  BackgroundColor="#C3A6B1" Grid.Column="1" Margin="0,20,0,0" HeightRequest="100" >
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand" Spacing="5">
-                        <Label x:Name="StockNameLabel4" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" />                    
-                        <Label x:Name="StockPriceLabel4"  HorizontalTextAlignment="Center" TextColor="Black" />
+                        <Label x:Name="StockNameLabel4" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockNameLabel}"/>                    
+                        <Label x:Name="StockPriceLabel4"  HorizontalTextAlignment="Center" TextColor="Black" Text="{Binding StockPriceLabel}"/>
                     </VerticalStackLayout>          
                 </Frame>  
         </Grid>
 
     </StackLayout>
 </ContentPage>
-

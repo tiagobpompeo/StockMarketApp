@@ -34,8 +34,7 @@ namespace StockMarketApp.ViewModels
             _container = new TinyIoCContainer();
 
             // View models - by default, TinyIoC will register concrete classes as multi-instance.
-
-            //_container.Register<LoginViewModel>();
+            _container.Register<MainPageViewModel>();
      
 
         }
