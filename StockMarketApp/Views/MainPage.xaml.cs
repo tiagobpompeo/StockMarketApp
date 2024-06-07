@@ -19,8 +19,7 @@ public partial class MainPage : ContentPage
         FactoryStock fm = new FactoryStock();
         IStock stock = fm.Choice_Stock("IBM");
         stock.Choiced();
-    } 
-    
+    }     
 }
 
 

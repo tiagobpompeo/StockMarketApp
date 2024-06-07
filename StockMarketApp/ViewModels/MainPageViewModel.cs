@@ -53,6 +53,34 @@ namespace StockMarketApp.ViewModels
             }
         }
 
+        private bool _isLoadingTrue;
+        public bool IsLoadingTrue
+        {
+            get
+            {
+                return this._isLoadingTrue;
+            }
+            set
+            {
+                this._isLoadingTrue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isAppearTrue;
+        public bool IsAppearTrue
+        {
+            get
+            {
+                return this._isAppearTrue;
+            }
+            set
+            {
+                this._isAppearTrue = value;
+                OnPropertyChanged();
+            }
+        }
+             
 
         public MainPageViewModel()
         {
@@ -66,7 +94,13 @@ namespace StockMarketApp.ViewModels
                 return;
             }
 
-            _ = CallServiceData();        
+            IsLoadingTrue = true;
+            IsAppearTrue = true;
+
+            _ = CallServiceData();
+
+            IsLoadingTrue = false;
+            IsAppearTrue = false;
         }
 
         private async Task CallServiceData()
@@ -108,15 +142,18 @@ namespace StockMarketApp.ViewModels
                 // Simula a chamada de uma API externa
                 await Task.Delay(1000); // Simula o tempo de resposta da API
 
-
                 if (string.IsNullOrWhiteSpace(StockSymbolEntry))
                 {                    
                     return;
                 }
-
            
                 try
                 {
+
+                    IsLoadingTrue = true;
+                    IsAppearTrue = true;                  
+
+
                     GenericRepository _genericRepository = GenericRepository.Instance;
                     string apiQuery = $"{ApiConstants.global}{ApiConstants.globalQuote}&symbol={StockSymbolEntry}&apikey={ApiConstants.apiKey}";
                     var stockData = await _genericRepository.GetAsync<StockData>(apiQuery, string.Empty);
@@ -130,6 +167,11 @@ namespace StockMarketApp.ViewModels
                     {
                         UpdateUITwo(stockData);
                     }
+
+
+                    IsLoadingTrue = false;
+                    IsAppearTrue = false;
+
                 }
                 catch (Exception ex)
                 {

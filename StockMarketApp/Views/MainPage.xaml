@@ -11,7 +11,8 @@
                Placeholder="Enter Stock Symbol Demo like IBM" />
 
         <Button Margin="0,10,0,0" Text="Get Stock Data" Command="{Binding OnGetStockDataCommand}" />
-        <ActivityIndicator x:Name="LoadingIndicator" IsRunning="False" IsVisible="False" />
+
+        <ActivityIndicator x:Name="LoadingIndicator" IsRunning="{Binding IsLoadingTrue}" IsVisible="{Binding IsAppearTrue}" />
 
         <Grid ColumnSpacing="10">
              <Grid.RowDefinitions>
